@@ -1,5 +1,15 @@
 body {
   background-color: rgb(224, 214, 196);
+
+}
+
+main {
+    padding: 15px 30px ;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
 }
 
 .header-bar {
@@ -33,4 +43,55 @@ body {
 .header-bar__btn:active{
   background-color: rgb(196, 119, 26);
   color:gold;
+}
+
+
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.photo-card{
+  display: flex;
+  flex-direction: column;
+  flex-basis: calc((100% - 90px) / 4);
+
+
+}
+
+.gallery{
+  margin-bottom: 30px;
+  
+}
+
+.photo-card__image {
+  display: block;
+  max-width: 100%;
+}
+
+.info{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 10px;
+  background-color: #e7dcdc;
+  border: 1px solid black;
+  border-top: none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.info-item{
+  display: flex;
+  flex-direction: column;
+}
+
+.load-more{
+  display: none;
+  margin: auto;
+  align-items: center;
+  border-radius: 3px;
+    border-color: transparent;
+    background-color: rgb(29, 126, 252);
+    height: 30px;
+    box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
