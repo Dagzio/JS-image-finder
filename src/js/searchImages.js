@@ -6,13 +6,17 @@ const options = {
   image_type: 'photo',
   orientation: 'horizontal',
   safesearch: true,
-  per_page: 40
+  per_page: 40,
 }
+let page = 1;
+
+
 
 export default async function fetchImages(name) {
-  const { BASE_URL, API_KEY, image_type, orientation, safesearch, per_page } = options;
+  const { BASE_URL, API_KEY, image_type, orientation, safesearch, per_page} = options;
   try {
-    const response = await axios.get(`${BASE_URL}?key=${API_KEY}&q=${name}&image_type=${image_type}&orientation=${orientation}&safesearch=${safesearch}&per_page=${per_page}`);
+    const response = await
+      axios.get(`${BASE_URL}?key=${API_KEY}&q=${name}&image_type=${image_type}&orientation=${orientation}&safesearch=${safesearch}&page=${page}&per_page=${per_page}`);
     return response.data;
   } catch (error) {
     console.error(error);

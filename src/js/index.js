@@ -7,26 +7,25 @@ const galleryList = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 
 form.addEventListener('submit', onSubmitForm);
-
+hideLoadMoreBtn();
 
 async function onSubmitForm(event) {
     event.preventDefault();
-    
+    hideLoadMoreBtn();
     const name = formInput.value.trim();
+    clearGallery();
     const images = await fetchImages(name);
     const render = await renderGalleryMarkup(images);
-     galleryList.insertAdjacentHTML("beforeend", render); 
+    galleryList.insertAdjacentHTML("beforeend", render); 
     form.reset();
 }
 
 function renderGalleryMarkup(images) {
 
     if (images.hits.length < 1) {
-        clearGallery();
-        loadMoreBtn.style.display = "none";
        Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     } else {
-        loadMoreBtn.style.display = "flex";
+        visibleLoadMoreBtn();
     }
     return images.hits.map(({ webformatURL, tags, likes, views, comments, downloads }) => {
         return `<div class="photo-card">
@@ -61,7 +60,10 @@ function clearGallery() {
     galleryList.innerHTML = '';
 }
 
-// function hideLoadMoreBtn() {
-//     loadMoreBtn.style.display = "none";
-// }
+function hideLoadMoreBtn() {
+    loadMoreBtn.style.display = "none";
+}
 
+function visibleLoadMoreBtn() {
+    loadMoreBtn.style.display = "block";
+}
