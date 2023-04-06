@@ -93,11 +93,6 @@ function renderGalleryMarkup(images) {
       }).join('');
 
 }; 
-galleryList.addEventListener('click', onImageClick);
-
-function onImageClick(event) {
-    event.preventDefault();
-}
 
 
 function clearGallery() {
@@ -111,11 +106,12 @@ function hideLoadMoreBtn() {
 function visibleLoadMoreBtn() {
     loadMoreBtn.style.display = "block";
 }
+galleryList.addEventListener('click', onImageClick);
 
+function onImageClick(event) {
+    event.preventDefault();
+}
 
-const optionsforLightbox = {
+const lightbox = new SimpleLightbox('.photo-card > photo-card__item a', {
     captionDelay: 250,
-    showCounter: false
-};
-
-const lightbox = new SimpleLightbox('.photo-card a', optionsforLightbox);
+    showCounter: false});
