@@ -13,6 +13,7 @@ hideLoadMoreBtn();
 let page = 1;
 
 
+
 form.addEventListener('submit', onSearch);
 
 async function onSearch(event) {
@@ -32,8 +33,9 @@ async function onSearch(event) {
     galleryList.insertAdjacentHTML("beforeend", render);
 
     
-    Notify.success(`Hooray! We found ${images.totalHits} images.`)
-    if (images.totalHits < 40) {
+    Notify.success(`Hooray! We found ${images.totalHits} images.`);
+    
+    if (images.totalHits > 1 && images.totalHits < 40) {
         hideLoadMoreBtn();
         Notify.info("We're sorry, but you've reached the end of search results.");
     }
@@ -60,7 +62,7 @@ async function onLoadMoreImages() {
 }
 
 function renderGalleryMarkup(images) {
-
+    lightbox.refresh();
     if (images.hits.length < 1) {
        Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     } else {
@@ -106,12 +108,12 @@ function hideLoadMoreBtn() {
 function visibleLoadMoreBtn() {
     loadMoreBtn.style.display = "block";
 }
+
 galleryList.addEventListener('click', onImageClick);
 
 function onImageClick(event) {
     event.preventDefault();
+    
 }
 
-const lightbox = new SimpleLightbox('.photo-card > photo-card__item a', {
-    captionDelay: 250,
-    showCounter: false});
+const lightbox = new SimpleLightbox('.gallery a', {captionDelay: 250});
