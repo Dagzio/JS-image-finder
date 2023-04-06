@@ -7,9 +7,9 @@ main {
     padding: 15px 30px ;
 }
 
-a {
+.photo-card__item {
   text-decoration: none;
-  display: inline-block;
+
 }
 
 .header-bar {
@@ -34,13 +34,15 @@ a {
 .header-bar__btn{
   font-weight: 500;
   border-radius: 3px;
+  height: 30px;
+  cursor: pointer;
   border-color: transparent;
   background-color:orange;
-  height: 30px;
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .header-bar__btn:active{
+  box-shadow: inset 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
   background-color: rgb(196, 119, 26);
   color:gold;
 }
@@ -49,24 +51,23 @@ a {
 .gallery{
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 15px;
 }
 .photo-card{
   display: flex;
   flex-direction: column;
-  flex-basis: calc((100% - 90px) / 4);
-
-
+  flex-basis: calc((100% - 60px) / 5);
+  height: auto;
 }
 
 .gallery{
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   
 }
 
 .photo-card__image {
   display: block;
-  max-width: 100%;
+  width: 100%;
 }
 
 .info{
@@ -91,7 +92,15 @@ a {
   text-align: center;
   border-radius: 3px;
     border-color: transparent;
-    background-color: rgb(29, 126, 252);
+    color: gold;
+    background-color: #a52a2a;
     height: 30px;
-    box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.load-more:active{
+  color: orange;
+  background-color: #681a1a;
+  box-shadow: inset 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
 }

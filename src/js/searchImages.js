@@ -8,11 +8,10 @@ const options = {
   safesearch: true,
   per_page: 40,
 }
-let page = 1;
 
 
 
-export default async function fetchImages(name) {
+export default async function fetchImages(name, page) {
   const { BASE_URL, API_KEY, image_type, orientation, safesearch, per_page} = options;
   try {
     const response = await
@@ -22,4 +21,3 @@ export default async function fetchImages(name) {
     console.error(error);
     }
 }
-
