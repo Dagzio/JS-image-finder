@@ -9,10 +9,13 @@ const searchInput = form.querySelector('input[name="searchQuery"]');
 const galleryList = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 
+const lightbox = new SimpleLightbox('.gallery a', { 
+    captionDelay: 250,
+    showCounter: false
+});
+
 hideLoadMoreBtn();
 let page = 1;
-
-
 
 form.addEventListener('submit', onSearch);
 
@@ -28,17 +31,14 @@ async function onSearch(event) {
     page = 1;
     
     const images = await fetchImages(name, page);
+         
     const render = await renderGalleryMarkup(images);
 
     galleryList.insertAdjacentHTML("beforeend", render);
 
-    
-    Notify.success(`Hooray! We found ${images.totalHits} images.`);
-    
-    if (images.totalHits > 1 && images.totalHits < 40) {
-        hideLoadMoreBtn();
-        Notify.info("We're sorry, but you've reached the end of search results.");
-    }
+    lightbox.refresh();
+
+    checkImagesCount(images);
 
 }
 
@@ -58,19 +58,26 @@ async function onLoadMoreImages() {
         hideLoadMoreBtn();
         Notify.info("We're sorry, but you've reached the end of search results.");
     }
-    
+
+    const { height: cardHeight } = document.querySelector(".gallery").firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+    top: cardHeight * 2.75,
+    behavior: "smooth",
+});
 }
 
 function renderGalleryMarkup(images) {
-    lightbox.refresh();
+   
     if (images.hits.length < 1) {
        Notify.failure("Sorry, there are no images matching your search query. Please try again.");
     } else {
         visibleLoadMoreBtn();
     }
+    
     return images.hits.map(({ webformatURL, largeImageURL , tags, likes, views, comments, downloads }) => {
         return `<div class="photo-card">
-                   <a class ="photo-card__item" href="${largeImageURL}"><img class ="photo-card__image" src="${webformatURL}" alt="${tags}" title="${tags}" loading="lazy" height='260'/></a>
+                   <a href="${largeImageURL}"><img class ="photo-card__image" src="${webformatURL}" alt="${tags}" title="${tags}" loading="lazy" height='260'/></a>
                 
              <div class="info">
                  <p class="info-item">
@@ -96,6 +103,16 @@ function renderGalleryMarkup(images) {
 
 }; 
 
+function checkImagesCount(images) {
+    if (images.totalHits > 1) {
+    Notify.success(`Hooray! We found ${images.totalHits} images.`);
+    }
+    
+    if (images.totalHits > 1 && images.totalHits < 40) {
+        hideLoadMoreBtn();
+    }
+
+}
 
 function clearGallery() {
     galleryList.innerHTML = '';
@@ -109,11 +126,4 @@ function visibleLoadMoreBtn() {
     loadMoreBtn.style.display = "block";
 }
 
-galleryList.addEventListener('click', onImageClick);
 
-function onImageClick(event) {
-    event.preventDefault();
-    
-}
-
-const lightbox = new SimpleLightbox('.gallery a', {captionDelay: 250});
